@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM debian
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -8,6 +8,11 @@ WORKDIR /var/www/html
 
 # Install required system packages
 RUN apt-get update && apt-get install -y \
+    php \
+    php-fpm \
+    php-mbstring \
+    php-xml \
+    php-curl \
     wget \
     curl \
     unzip \
@@ -16,9 +21,6 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libonig-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install PHP extensions
-RUN docker-php-ext-install curl xml mbstring
 
 # Install WP-CLI
 RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
