@@ -28,7 +28,7 @@ RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh
     chmod +x /usr/local/bin/wp
 
 # Download and extract WordPress directly
-RUN wp core download --allow-root
+RUN wp --allow-root core download https://wordpress.org/wordpress-5.9.5.tar.gz
 
 # Set up entrypoint script
 CMD ["wp", "server", "--host=0.0.0.0", "--port=80", "--allow-root"]
