@@ -18,7 +18,7 @@ service php8.2-fpm start
 echo "Starting Lighttpd..."
 service lighttpd start
 
-echo "Container is ready! WordPress is running."
+echo "Container is ready! WordPress is running." | tee -a /var/log/lighttpd/error.log | tee -a /var/log/lighttpd/access.log
 
 # Keep container running
-tail -f /dev/null
+tail -f /var/log/lighttpd/error.log /var/log/lighttpd/access.log
