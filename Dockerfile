@@ -14,10 +14,13 @@ RUN apt-get update && apt-get install -y \
     php-xml \
     php-curl \
     php-mysql \
+    php-gd \
+    php-zip \
     wget \
     curl \
     unzip \
     zip \
+    lighttpd \
     libcurl4-openssl-dev \
     libxml2-dev \
     libonig-dev && \
@@ -30,5 +33,11 @@ RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh
 # Download and extract WordPress directly
 RUN wp --allow-root core download https://wordpress.org/wordpress-5.9.5.tar.gz
 
+# Copy Lighttpd configuration
+COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
+
 # Set up entrypoint script
-CMD ["wp", "server", "--host=0.0.0.0", "--port=80", "--allow-root"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
