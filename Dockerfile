@@ -39,5 +39,6 @@ COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
 # Set up entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+COPY wp-config.php .
 
 ENTRYPOINT ["/entrypoint.sh"]
