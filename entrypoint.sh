@@ -30,6 +30,8 @@ if [ ! -f "$SSL_DIR/ca.pem" ]; then
     cp "$SSL_DIR/server.crt" "$SSL_DIR/ca.pem"
 fi
 
+chmod -R 0777 ./wp-content/uploads/*
+
 # Start PHP-FPM service
 echo "Starting PHP-FPM..."
 service php8.2-fpm start
